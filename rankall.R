@@ -43,15 +43,25 @@ rankall <- function(outcome, num = "best") {
   for(state in 1:length(states))
   {
       tester <- subset(condition_complete_ordered, State == states[state])[, c(1,2)]
-      print(c(nrow(tester), states[state]))
-      
-      if(nrow(tester) < num) {
-         out <- rbind(out, c(NA, states[state]))
-         print(out)
-        }
+
+      if(num == "worst") {
+          tester <- tester[nrow(tester) ,]
+      }
+      else if(num == "best"){
+          
+      }
       else {
+          tester <- tester[num ,]
+      }
+
+      if(is.na(tester[, 1]) == TRUE)
+     {
+         tester[, 2] <- states[state]
+         #print(tester)
+     }
+        
         out <- rbind(out, tester)
-         }
+        
   }
   out
 }
